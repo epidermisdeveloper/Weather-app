@@ -10,6 +10,15 @@ document.addEventListener('DOMContentLoaded', function () {
     
     intro.style.display = 'flex';
 
+    var div = document.querySelector(".boody");
+var crsr = document.querySelector(".cursor");
+
+div.addEventListener("mousemove", function (event) {
+  crsr.style.left = event.x - 15 + "px";
+  crsr.style.top = event.y - 15 + "px";
+});
+
+
     const expand = () => {
         btn.classList.toggle("close");
         input.classList.toggle("square");
@@ -58,7 +67,8 @@ document.addEventListener('DOMContentLoaded', function () {
                 setTimeout(() => {
                     searchh.style.display= 'none';
                     preloader.style.display = 'none';
-                    document.querySelector('.card').style.display = 'block';
+                    
+                    btn.style.display = 'block';
                     details.style.display = 'flex';
                     detailss.style.display = 'flex';
                     // Display weather details

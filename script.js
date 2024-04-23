@@ -1,56 +1,61 @@
 document.addEventListener('DOMContentLoaded', function () {
     const searchh = document.getElementById('content');
-    const intro = document.querySelector('.intro');
+    let intro = document.querySelector('.intro');
+    let logo = document.querySelector(".logo-header");
+    let logoSpan = document.querySelectorAll('.logo');
     const weathericon = document.querySelector('.weather-icon');
     const details = document.querySelector('.details');
+    const detailss = document.querySelector('.detailss'); // Fixed typo here
     const form = document.getElementById('search-btn');
     const btn = document.querySelector('.card');
     const input = document.getElementById("search-input");
     const body = document.querySelector('.body');
-    
-    intro.style.display = 'flex';
 
     var div = document.querySelector(".boody");
-var crsr = document.querySelector(".cursor");
-
-div.addEventListener("mousemove", function (event) {
-  crsr.style.left = event.x - 15 + "px";
-  crsr.style.top = event.y - 15 + "px";
-});
-
+    var crsr = document.querySelector(".cursor");
+    
+    div.addEventListener("mousemove", function (event) {
+        crsr.style.left = event.x - 15 + "px";
+        crsr.style.top = event.y - 15 + "px";
+    });
 
     const expand = () => {
         btn.classList.toggle("close");
         input.classList.toggle("square");
     };
 
-    // Fade in intro
-    intro.style.opacity = '0';
-    searchh.style.display = 'none';
     setTimeout(() => {
-        intro.style.opacity = '1';
-    }, 10);
+        logoSpan.forEach((span, idx) => {
+            setTimeout(() => {
+                span.classList.add('active');
+            }, (idx + 1) * 400);
+        });
 
-    // Fade out intro after 3 seconds
-    setTimeout(() => {
-        intro.style.opacity = '0';
         setTimeout(() => {
-            intro.style.display = 'none';
-            searchh.style.display = 'inline-block';
-            searchh.style.width = '30%';
-        }, 1000); // After the opacity transition is complete
-    }, 3000);
+            logoSpan.forEach((span, idx) => { // Fixed typo here
+                setTimeout(() => {
+                    span.classList.remove('active');
+                    span.classList.add('fade');
+                }, (idx + 1) * 50);
+            });
+        }, 2000);
 
-    form.addEventListener('click', function(event) {
+        setTimeout(() => {
+            intro.style.top = '-100vh';
+        }, 2300);
+    }, 100); // Added delay to match the intro fadeout timing
+
+
+    form.addEventListener('click', function (event) {
         expand();
         weathericon.style.display = 'block';
         event.preventDefault(); // Prevent form submission
     });
 
-    input.addEventListener('keypress', function(event) {
+    input.addEventListener('keypress', function (event) {
         expand();
-        if(event.key === "Enter"){
-            searchh.style.display= 'none';
+        if (event.key === "Enter") {
+            searchh.style.display = 'none';
             const cityInput = input.value; // Use input directly
             const preloader = document.querySelector('.preloader');
             preloader.style.display = 'flex';
@@ -65,9 +70,9 @@ div.addEventListener("mousemove", function (event) {
             setTimeout(() => {
                 preloader.style.opacity = '0';
                 setTimeout(() => {
-                    searchh.style.display= 'none';
+                    searchh.style.display = 'none';
                     preloader.style.display = 'none';
-                    
+
                     btn.style.display = 'block';
                     details.style.display = 'flex';
                     detailss.style.display = 'flex';
@@ -116,15 +121,15 @@ function fetchWeatherData(city) {
             const temppc = convertKelvinToCelsius3(feels);
             const weatherdescription = data.weather[0].main;
 
-            if(weatherdescription === "Clouds"){
+            if (weatherdescription === "Clouds") {
                 icon.src = "images/clouds.png";
-            } else if(weatherdescription === "Rain"){
+            } else if (weatherdescription === "Rain") {
                 icon.src = "images/rain.png";
-            } else if(weatherdescription === "Clear"){
+            } else if (weatherdescription === "Clear") {
                 icon.src = "images/clear.png";
-            } else if(weatherdescription === "Drizzle"){
+            } else if (weatherdescription === "Drizzle") {
                 icon.src = "images/drizzle.png";
-            } else if(weatherdescription === "Mist"){
+            } else if (weatherdescription === "Mist") {
                 icon.src = "images/mist.png";
             }
 
@@ -161,13 +166,14 @@ function fetchWeatherData(city) {
 }
 
 function convertKelvinToCelsius(kelvin) {
-    return (kelvin - 273.15).toFixed(2);
+    return Math.round(kelvin - 273.15);
 }
 
 function convertKelvinToCelsius2(kelvin) {
-    return (kelvin - 273.15).toFixed(2);
+    return Math.round(kelvin - 273.15);
 }
 
 function convertKelvinToCelsius3(kelvin) {
-    return (kelvin - 273.15).toFixed(2);
+    return Math.round(kelvin - 273.15);
 }
+ 

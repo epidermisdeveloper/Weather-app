@@ -5,15 +5,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css"> 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jersey+25&display=swap" rel="stylesheet">
+<link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato&display=swap" rel="stylesheet">
 </head>
-<body>
-    <div class="card">
-        <div class="search">
-            <input type="text" placeholder="enter city name" id="cityInput" id="search">
-            <button id="search"><div><img src="images/search.png" alt="search"></div></button>
+<body class="boody">
+
+    <div class="intro">
+        <h1 class="bc">WeatherCast</h1>
+    </div>
+
+    <div class="preloader">
+        <div class='body'>
+            <span>
+                <span></span>
+                <span></span>
+                <span></span>
+                <span></span>
+            </span>
+            <div class='base'>
+                <span></span>
+                <div class='face'></div>
+            </div>
         </div>
+        <div class='longfazers'>
+            <span></span>
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <h1 id="hhh">Fetching</h1>
+    </div>
+    
+    <form id="content">
+        <input type="text" name="input" class="input" id="search-input" >
+        <button type="reset" class="search" id="search-btn"></button>
+      </form>
+
+    <div class="card">     
         <div class="weather">
-            <img src="images/clear.png" class="weather-icon">
+            <img src="" class="weather-icon">
             <h1 class="temp"></h1>
             <h2 class="city"></h2>
             <div class="details">
@@ -40,7 +73,7 @@
                     </div>
                 </div>
             </div>
-            <div class="details">
+            <div class="detailss">
                 <div class="col">
                     <img src="images/pngwing.com.png">
                     <div>

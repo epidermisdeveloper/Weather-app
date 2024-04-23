@@ -102,8 +102,8 @@ function fetchWeatherData(city) {
             const sunset = data.sys.sunset * 1000;
             const tempm = data.main.temp_max;
             const tempmc = convertKelvinToCelsius2(tempm);
-            const tempp = data.main.temp_min;
-            const temppc = convertKelvinToCelsius3(tempp);
+            const feels = data.main.feels_like;
+            const temppc = convertKelvinToCelsius3(feels);
             const weatherdescription = data.weather[0].main;
 
             if(weatherdescription === "Clouds"){
@@ -137,7 +137,7 @@ function fetchWeatherData(city) {
             document.querySelector('.humidity').textContent = `Humidity: ${humidity}%`;
             document.querySelector('.sunrise').textContent = `Sunrise: ${sunriseHours}:${sunriseMinutes}:${sunriseSeconds}`;
             document.querySelector('.max-temp').textContent = `Max Temp: ${tempmc}°C`;
-            document.querySelector('.min-temp').textContent = `Min Temp: ${temppc}°C`;
+            document.querySelector('.min-temp').textContent = `Feels: ${temppc}°C`;
             document.querySelector('.sunset').textContent = `Sunset: ${sunsetHours}:${sunsetMinutes}:${sunsetSeconds}`;
 
             // Clear error message if present

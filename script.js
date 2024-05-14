@@ -10,52 +10,67 @@ document.addEventListener('DOMContentLoaded', function () {
     const btn = document.querySelector('.card');
     const input = document.getElementById("search-input");
     const body = document.querySelector('.body');
-
+    const home = document.querySelector(".btn-searching");
     var div = document.querySelector(".boody");
     var crsr = document.querySelector(".cursor");
+
+    let prevScrollpos = window.pageYOffset;
+
     
-    const coords = { x: 0, y: 0 };
-const circles = document.querySelectorAll(".circle");
 
-const colors = [
-  "#ffffff"
-];
-
-circles.forEach(function (circle, index) {
-  circle.x = 0;
-  circle.y = 0;
-  circle.style.backgroundColor = colors[index % colors.length];
-});
-
-window.addEventListener("mousemove", function(e){
-  coords.x = e.clientX;
-  coords.y = e.clientY;
-  
-});
-
-function animateCircles() {
-  
-  let x = coords.x;
-  let y = coords.y;
-  
-  circles.forEach(function (circle, index) {
-    circle.style.left = x - 12 + "px";
-    circle.style.top = y - 12 + "px";
-    
-    circle.style.scale = (circles.length - index) / circles.length;
-    
-    circle.x = x;
-    circle.y = y;
-
-    const nextCircle = circles[index + 1] || circles[0];
-    x += (nextCircle.x - x) * 0.3;
-    y += (nextCircle.y - y) * 0.3;
-  });
- 
-  requestAnimationFrame(animateCircles);
+window.onscroll = function() {
+  let currentScrollPos = window.pageYOffset;
+  if (prevScrollpos > currentScrollPos) {
+    document.getElementById("header").style.top = "0";
+  } else {
+    document.getElementById("header").style.top = "-70px"; // Adjust the height of your header accordingly
+  }
+  prevScrollpos = currentScrollPos;
 }
 
-animateCircles();
+
+    const coords = { x: 0, y: 0 };
+    const circles = document.querySelectorAll(".circle");
+
+    const colors = [
+        "#ffffff"
+    ];
+
+    circles.forEach(function (circle, index) {
+        circle.x = 0;
+        circle.y = 0;
+        circle.style.backgroundColor = colors[index % colors.length];
+    });
+
+    window.addEventListener("mousemove", function (e) {
+        coords.x = e.clientX;
+        coords.y = e.clientY;
+
+    });
+
+    function animateCircles() {
+
+        let x = coords.x;
+        let y = coords.y;
+
+        circles.forEach(function (circle, index) {
+            circle.style.left = x - 12 + "px";
+            circle.style.top = y - 12 + "px";
+
+            circle.style.scale = (circles.length - index) / circles.length;
+
+            circle.x = x;
+            circle.y = y;
+
+            const nextCircle = circles[index + 1] || circles[0];
+            x += (nextCircle.x - x) * 0.3;
+            y += (nextCircle.y - y) * 0.3;
+        });
+
+        requestAnimationFrame(animateCircles);
+    }
+
+    animateCircles();
 
     const expand = () => {
         btn.classList.toggle("close");
@@ -79,9 +94,12 @@ animateCircles();
         }, 2000);
 
         setTimeout(() => {
+            navbar.style.display = 'flex';
             intro.style.top = '-100vh';
         }, 2300);
     }, 100); // Added delay to match the intro fadeout timing
+
+    const navbar = document.getElementById('navbar');
 
 
     form.addEventListener('click', function (event) {
@@ -121,6 +139,12 @@ animateCircles();
             fetchWeatherData(cityInput);
             event.preventDefault(); // Prevent form submission
         }
+    });
+
+    home.addEventListener('click', function (event) {
+        btn.style.display = "none";
+        searchh.style.display = "flex";
+        input.value = "";
     });
 });
 
@@ -166,9 +190,11 @@ function fetchWeatherData(city) {
                 icon.src = "images/clear.png";
             } else if (weatherdescription === "Drizzle") {
                 icon.src = "images/drizzle.png";
-            } else if (weatherdescription === "Mist") {
+            } else if (weatherdescription === "Haze") {
                 icon.src = "images/mist.png";
             }
+
+            console.log(data);
 
             // Convert sunrise time to hours, minutes, and seconds
             const sunriseTime = new Date(sunrise);
@@ -213,4 +239,3 @@ function convertKelvinToCelsius2(kelvin) {
 function convertKelvinToCelsius3(kelvin) {
     return Math.round(kelvin - 273.15);
 }
- 

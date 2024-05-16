@@ -109,7 +109,6 @@ window.onscroll = function() {
     });
 
     input.addEventListener('keypress', function (event) {
-        expand();
         if (event.key === "Enter") {
             searchh.style.display = 'none';
             const cityInput = input.value; // Use input directly
